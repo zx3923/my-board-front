@@ -1,29 +1,25 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [UserName, setUserName] = useState("");
   const [UserId, setUserId] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const post = () => {
-    axios
-      .post("http://localhost:8088/", {
-        UserName,
-        UserId,
-        Password,
-        ConfirmPassword,
-      })
-      .then((resopnse) => {
-        if (resopnse.data == true) {
-          alert("회원가입 성공");
-          navigate("/");
-        } else if (resopnse.data == false) {
-          alert("다시 입력해 주세요");
-        }
-      });
+    axios({
+      method: "post",
+      url: "http://localhost:8090/user/signup",
+      data: {
+        password: Password,
+        username: UserName,
+        userid: UserId,
+      },
+    }).then((response) => {
+      console.log(response);
+    });
   };
   return (
     <>
@@ -72,9 +68,6 @@ const SignUp = () => {
       </div>
       <button
         onClick={() => {
-          console.log(
-            UserName + " " + UserId + " " + Password + " " + ConfirmPassword
-          );
           post();
         }}
       >
