@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [UserName, setUserName] = useState("");
   const [UserId, setUserId] = useState("");
   const [Password, setPassword] = useState("");
@@ -14,11 +14,17 @@ const SignUp = () => {
       url: "http://localhost:8090/user/signup",
       data: {
         password: Password,
-        username: UserName,
-        userid: UserId,
+        userName: UserName,
+        userId: UserId,
+        confirmPassword: ConfirmPassword,
       },
     }).then((response) => {
-      console.log(response);
+      if (response.data === "성공했습니다.") {
+        alert(response.data);
+        navigate("/");
+      } else {
+        alert(response.data);
+      }
     });
   };
   return (
