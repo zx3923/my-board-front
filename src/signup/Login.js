@@ -56,8 +56,6 @@ const Login = () => {
       </div>
       <button
         onClick={() => {
-          console.log(" " + UserId + " " + Password);
-
           post();
         }}
       >

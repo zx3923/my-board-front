@@ -1,17 +1,30 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  // sessionStorage.getItem("logined")
+  const navigate = useNavigate();
+  const write = () => {
+    if (sessionStorage.getItem("logined")) {
+      navigate("/write");
+    } else {
+      alert("로그인하세요");
+    }
+  };
   return (
     <div>
-      <a href="/write">글 쓰기</a>
       <button
         onClick={() => {
-          console.log(sessionStorage.getItem("logined"));
-          console.log(sessionStorage.getItem("named"));
+          write();
         }}
       >
-        확인
+        글 쓰기
+      </button>
+      <button
+        onClick={() => {
+          navigate("/list");
+        }}
+      >
+        게시글
       </button>
     </div>
   );

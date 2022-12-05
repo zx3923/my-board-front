@@ -5,6 +5,7 @@ import SignUp from "./signup/SignUp";
 import Login from "./signup/Login";
 import Main from "./components/Main";
 import BoardWrite from "./board/BoardWrite";
+import BoardList from "./board/BoardList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/write" element={<BoardWrite />}></Route>
+          <Route path="/list" element={<BoardList />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

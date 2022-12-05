@@ -1,8 +1,26 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BoardWrite = () => {
+  const navigate = useNavigate();
   const [Subject, setSubject] = useState("");
   const [Contents, setContents] = useState("");
+  // const [author, setAuthor] = useState("");
+
+  const write = () => {
+    axios({
+      method: "post",
+      url: "http://localhost:8090/board/write",
+      data: {
+        subject: Subject,
+        contents: Contents,
+        author: sessionStorage.getItem("loginid"),
+      },
+    }).then((response) => {
+      console.log(response.data);
+    });
+  };
   return (
     <>
       <div>글 쓰기</div>
@@ -33,7 +51,15 @@ const BoardWrite = () => {
       </div>
       <button
         onClick={() => {
-          console.log("as");
+          if (Subject === "") {
+            alert("제목을 입력하세요.");
+          } else if (Contents === "") {
+            alert("내용을 입력하세요.");
+          } else {
+            write();
+            alert("작성했습니다.");
+            navigate("/");
+          }
         }}
       >
         작성하기

@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.Header}>
@@ -15,6 +17,7 @@ const Header = () => {
                 onClick={() => {
                   sessionStorage.clear();
                   alert("로그아웃 했습니다.");
+                  navigate("/");
                   window.location.reload();
                 }}
               >
