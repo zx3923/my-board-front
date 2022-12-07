@@ -1,31 +1,23 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const BoardList = () => {
-  const [boardList, setBoardList] = useState("");
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await axios({
-          url: "http://localhost:8090/board/list",
-          method: "get",
-        });
-        setBoardList(data.data);
-      } catch (e) {}
-    };
-    getData();
-  }, []);
+const BoardList = ({ list }) => {
+  const navigate = useNavigate();
+  const { id, subject, author } = list;
   return (
-    <div>
-      <button
-        onClick={() => {
-          console.log(boardList);
-        }}
-      >
-        확인
-      </button>
-    </div>
+    <>
+      <tr>
+        <th>{id}</th>
+        <th
+          onClick={() => {
+            navigate(`/detail/${id}`);
+          }}
+        >
+          {subject}
+        </th>
+        <th>{author}</th>
+      </tr>
+    </>
   );
 };
 
