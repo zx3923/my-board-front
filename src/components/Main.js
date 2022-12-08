@@ -6,6 +6,7 @@ const Main = () => {
   const write = () => {
     if (sessionStorage.getItem("logined")) {
       navigate("/write");
+      window.location.reload();
     } else {
       alert("로그인하세요");
     }
@@ -22,6 +23,7 @@ const Main = () => {
       <button
         onClick={() => {
           navigate("/list");
+          // window.location.reload();
         }}
       >
         게시글

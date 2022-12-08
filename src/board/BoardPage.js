@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import BoardList from "./BoardList";
 
 const BoardPage = ({ boardList }) => {
-  console.log("1번", boardList);
   boardList.sort(function (a, b) {
-    return b.id - a.id;
+    return b.boardId - a.boardId;
   });
   useEffect(() => {}, []);
   return (

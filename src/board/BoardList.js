@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 const BoardList = ({ list }) => {
   const navigate = useNavigate();
-  const { id, subject, author } = list;
+  const { boardId, subject, author } = list;
   return (
     <>
       <tr>
-        <th>{id}</th>
+        <th>{boardId}</th>
         <th
           onClick={() => {
-            navigate(`/detail/${id}`);
+            navigate(`/detail/${boardId}`);
           }}
         >
           {subject}

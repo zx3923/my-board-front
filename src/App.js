@@ -20,7 +20,6 @@ function App() {
           url: "http://localhost:8090/board/list",
           method: "get",
         });
-        console.log(data.data);
         setBoardList(data.data);
       } catch (e) {}
     };

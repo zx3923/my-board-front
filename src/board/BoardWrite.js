@@ -17,9 +17,7 @@ const BoardWrite = () => {
         contents: Contents,
         author: sessionStorage.getItem("loginid"),
       },
-    }).then((response) => {
-      console.log(response.data);
-    });
+    }).then((response) => {});
   };
   return (
     <>
@@ -59,6 +57,7 @@ const BoardWrite = () => {
             write();
             alert("작성했습니다.");
             navigate("/");
+            window.location.reload();
           }
         }}
       >
