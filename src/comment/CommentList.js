@@ -1,7 +1,15 @@
 import React from "react";
 
-const CommentList = () => {
-  return <div>as</div>;
+const CommentList = ({ list }) => {
+  const { commentContents, commentAuthor } = list;
+  return (
+    <>
+      <tr>
+        <th>{commentContents}</th>
+        <th>{commentAuthor}</th>
+      </tr>
+    </>
+  );
 };
 
 export default CommentList;

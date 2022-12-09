@@ -8,6 +8,7 @@ const BoardDetail = () => {
   const { id } = useParams();
   const [contents, setContents] = useState({});
   const [Comment, setComment] = useState("");
+  const [commentList, setCommentList] = useState("");
 
   const commentPost = () => {
     axios({
@@ -29,7 +30,15 @@ const BoardDetail = () => {
         method: "get",
         url: `http://localhost:8090/board/${id}`,
       });
+      const data2 = await axios({
+        method: "get",
+        url: `http://localhost:8090/board/comment/list/${id}`,
+      });
+
       setContents(data.data);
+      setCommentList(data2.data);
+      console.log(contents);
+      console.log(commentList);
     };
     getData();
   }, []);
@@ -48,7 +57,12 @@ const BoardDetail = () => {
       <div>
         {" "}
         <span>댓글</span>
-        <CommentList></CommentList>
+        <tbody>
+          {commentList &&
+            commentList.map((list, index) => (
+              <CommentList key={index} list={list} />
+            ))}
+        </tbody>
         <textarea
           name=""
           id=""
@@ -69,7 +83,7 @@ const BoardDetail = () => {
             } else {
               commentPost();
               alert("작성했습니다.");
-              // window.location.reload();
+              window.location.reload();
             }
           }}
         >
