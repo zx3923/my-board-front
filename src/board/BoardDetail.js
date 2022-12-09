@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import CommentList from "../comment/CommentList";
 
 const BoardDetail = () => {
   const navigate = useNavigate();
@@ -16,7 +17,11 @@ const BoardDetail = () => {
         contents: Comment,
         author: sessionStorage.getItem("loginid"),
       },
-    }).then((response) => {});
+    }).then((response) => {
+      console.log("1번", response);
+      console.log("2번", response.data);
+      console.log("3번", response.data.board);
+    });
   };
   useEffect(() => {
     const getData = async () => {
@@ -43,6 +48,7 @@ const BoardDetail = () => {
       <div>
         {" "}
         <span>댓글</span>
+        <CommentList></CommentList>
         <textarea
           name=""
           id=""
@@ -63,7 +69,7 @@ const BoardDetail = () => {
             } else {
               commentPost();
               alert("작성했습니다.");
-              window.location.reload();
+              // window.location.reload();
             }
           }}
         >
