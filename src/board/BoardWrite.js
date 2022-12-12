@@ -56,7 +56,7 @@ const BoardWrite = () => {
           } else {
             write();
             alert("작성했습니다.");
-            navigate("/");
+            navigate("/list");
             window.location.reload();
           }
         }}

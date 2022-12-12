@@ -18,10 +18,21 @@ const BoardDetail = () => {
         contents: Comment,
         author: sessionStorage.getItem("loginid"),
       },
+    }).then((response) => {});
+  };
+
+  const boardDelete = () => {
+    axios({
+      method: "delete",
+      url: `http://localhost:8090/board/delete/${id}`,
+      data: {
+        userId: sessionStorage.getItem("loginid"),
+      },
     }).then((response) => {
-      console.log("1번", response);
-      console.log("2번", response.data);
-      console.log("3번", response.data.board);
+      console.log(response.data);
+      alert(response.data);
+      navigate(-1);
+      // 삭제로직 구현 완료 하지만 삭제후 리스트에 바로 렌더링되게 고민좀
     });
   };
   useEffect(() => {
@@ -37,8 +48,6 @@ const BoardDetail = () => {
 
       setContents(data.data);
       setCommentList(data2.data);
-      console.log(contents);
-      console.log(commentList);
     };
     getData();
   }, []);
@@ -50,6 +59,13 @@ const BoardDetail = () => {
         }}
       >
         리스트
+      </button>
+      <button
+        onClick={() => {
+          boardDelete();
+        }}
+      >
+        삭제
       </button>
       <div>{contents.id}</div>
       <div>{contents.author}</div>
