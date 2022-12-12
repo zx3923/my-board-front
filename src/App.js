@@ -9,6 +9,7 @@ import BoardWrite from "./board/BoardWrite";
 import BoardPage from "./board/BoardPage";
 import axios from "axios";
 import BoardDetail from "./board/BoardDetail";
+import BoardUpdate from "./board/BoardUpdate";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
@@ -39,6 +40,7 @@ function App() {
             element={<BoardPage boardList={boardList} />}
           ></Route>
           <Route path="/detail/:id" element={<BoardDetail />} />
+          <Route path="/update/:id" element={<BoardUpdate />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -6,7 +6,7 @@ import CommentList from "../comment/CommentList";
 const BoardDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [contents, setContents] = useState({});
+  const [contents, setContents] = useState("");
   const [Comment, setComment] = useState("");
   const [commentList, setCommentList] = useState("");
 
@@ -45,7 +45,7 @@ const BoardDetail = () => {
         method: "get",
         url: `http://localhost:8090/board/comment/list/${id}`,
       });
-
+      console.log(contents);
       setContents(data.data);
       setCommentList(data2.data);
     };
@@ -67,9 +67,20 @@ const BoardDetail = () => {
       >
         삭제
       </button>
-      <div>{contents.id}</div>
-      <div>{contents.author}</div>
-      <div>{contents.subject}</div>
+      <button
+        onClick={() => {
+          if (sessionStorage.getItem("loginid") == contents.author) {
+            navigate(`../../update/${id}`);
+          } else {
+            alert("권한이 없습니다.");
+          }
+        }}
+      >
+        수정
+      </button>
+      <div>작성자 : {contents.author}</div>
+      <div>제목 : {contents.subject}</div>
+      <div>내용 : {contents.contents}</div>
       <div>
         {" "}
         <span>댓글</span>
