@@ -13,9 +13,9 @@ const BoardList = ({ list }) => {
             navigate(`/detail/${boardId}`);
           }}
         >
-          {subject}
+          ({subject})
         </th>
-        <th>{author}</th>
+        <th>({author})</th>
       </tr>
     </>
   );

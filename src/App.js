@@ -44,9 +44,7 @@ function App() {
           ></Route>
           <Route
             path="/detail/:id"
-            element={
-              <BoardDetail boardList={boardList} setBoardList={setBoardList} />
-            }
+            element={<BoardDetail setBoardList={setBoardList} />}
           />
           <Route
             path="/update/:id"

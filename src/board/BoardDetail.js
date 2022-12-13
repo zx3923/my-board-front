@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentList from "../comment/CommentList";
 
-const BoardDetail = ({ boardList, setBoardList }) => {
+const BoardDetail = ({ setBoardList }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contents, setContents] = useState("");
@@ -83,16 +83,20 @@ const BoardDetail = ({ boardList, setBoardList }) => {
       >
         수정
       </button>
-      <div>작성자 : {contents.author}</div>
-      <div>제목 : {contents.subject}</div>
-      <div>내용 : {contents.contents}</div>
+      <div>작성자 : ({contents.author})</div>
+      <div>제목 : ({contents.subject})</div>
+      <div>내용 : ({contents.contents})</div>
       <div>
         {" "}
         <span>댓글</span>
         <tbody>
           {commentList &&
             commentList.map((list, index) => (
-              <CommentList key={index} list={list} />
+              <CommentList
+                key={index}
+                list={list}
+                setCommentList={setCommentList}
+              />
             ))}
         </tbody>
         <textarea
