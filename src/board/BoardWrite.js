@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BoardWrite = () => {
+const BoardWrite = ({ setBoardList }) => {
   const navigate = useNavigate();
   const [Subject, setSubject] = useState("");
   const [Contents, setContents] = useState("");
-  // const [author, setAuthor] = useState("");
 
   const write = () => {
     axios({
@@ -17,7 +16,10 @@ const BoardWrite = () => {
         contents: Contents,
         author: sessionStorage.getItem("loginid"),
       },
-    }).then((response) => {});
+    }).then((response) => {
+      console.log(response.data);
+      setBoardList(response.data);
+    });
   };
   return (
     <>
@@ -57,7 +59,6 @@ const BoardWrite = () => {
             write();
             alert("작성했습니다.");
             navigate("/list");
-            window.location.reload();
           }
         }}
       >

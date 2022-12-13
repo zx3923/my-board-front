@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentList from "../comment/CommentList";
 
-const BoardDetail = () => {
+const BoardDetail = ({ boardList, setBoardList }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contents, setContents] = useState("");
@@ -29,10 +29,15 @@ const BoardDetail = () => {
         userId: sessionStorage.getItem("loginid"),
       },
     }).then((response) => {
-      console.log(response.data);
-      alert(response.data);
-      navigate(-1);
+      if (!response.data) {
+        alert("삭제 권한이 없습니다.");
+      } else {
+        setBoardList(response.data);
+        alert("삭제했습니다.");
+        navigate(-1);
+      }
       // 삭제로직 구현 완료 하지만 삭제후 리스트에 바로 렌더링되게 고민좀
+      // -> 스프링에서 삭제시 false 값 혹은 리스트객체를 보내줘서 삭제 성공하면 setBoardList로 데이터를 새로씌움
     });
   };
   useEffect(() => {

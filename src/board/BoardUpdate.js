@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const BoardUpdate = () => {
+const BoardUpdate = ({ boardList, setBoardList }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [boardText, setBoardText] = useState("");
@@ -20,7 +20,7 @@ const BoardUpdate = () => {
           author: sessionStorage.getItem("loginid"),
         },
       });
-      setBoardText(data.data);
+      setBoardList(data.data);
     } catch (e) {
       console.log(e);
     }
@@ -75,13 +75,12 @@ const BoardUpdate = () => {
             alert("내용을 입력하세요.");
           } else {
             patch();
-            alert("작성했습니다.");
+            alert("수정했습니다.");
             navigate("/list");
-            window.location.reload();
           }
         }}
       >
-        작성하기
+        수정하기
       </button>
     </>
   );

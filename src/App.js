@@ -34,13 +34,26 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/write" element={<BoardWrite />}></Route>
+          <Route
+            path="/write"
+            element={<BoardWrite setBoardList={setBoardList} />}
+          ></Route>
           <Route
             path="/list"
             element={<BoardPage boardList={boardList} />}
           ></Route>
-          <Route path="/detail/:id" element={<BoardDetail />} />
-          <Route path="/update/:id" element={<BoardUpdate />} />
+          <Route
+            path="/detail/:id"
+            element={
+              <BoardDetail boardList={boardList} setBoardList={setBoardList} />
+            }
+          />
+          <Route
+            path="/update/:id"
+            element={
+              <BoardUpdate boardList={boardList} setBoardList={setBoardList} />
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
