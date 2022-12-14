@@ -10,6 +10,7 @@ import BoardPage from "./board/BoardPage";
 import axios from "axios";
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
+import AccountModify from "./signup/AccountModify";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
@@ -52,6 +53,7 @@ function App() {
               <BoardUpdate boardList={boardList} setBoardList={setBoardList} />
             }
           />
+          <Route path="/account" element={<AccountModify />} />
         </Routes>
         <Footer />
       </BrowserRouter>

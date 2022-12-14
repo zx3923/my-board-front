@@ -54,7 +54,7 @@ const SignUp = () => {
         <div>
           <span>비밀번호 : </span>
           <input
-            type="text"
+            type="password"
             value={Password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -64,7 +64,7 @@ const SignUp = () => {
         <div>
           <span>비밀번호 확인 : </span>
           <input
-            type="text"
+            type="password"
             value={ConfirmPassword}
             onChange={(e) => {
               setConfirmPassword(e.target.value);

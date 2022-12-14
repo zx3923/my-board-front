@@ -6,6 +6,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [UserId, setUserId] = useState("");
   const [Password, setPassword] = useState("");
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      post();
+    }
+  };
 
   const post = () => {
     axios({
@@ -46,8 +51,9 @@ const Login = () => {
         <div>
           <span>비밀번호 : </span>
           <input
-            type="text"
+            type="password"
             value={Password}
+            onKeyUp={handleKeyPress}
             onChange={(e) => {
               setPassword(e.target.value);
             }}

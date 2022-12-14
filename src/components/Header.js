@@ -12,7 +12,13 @@ const Header = () => {
         <div>
           {sessionStorage.getItem("logined") ? (
             <>
-              <span>{sessionStorage.getItem("loginid")}</span>
+              <span
+                onClick={() => {
+                  navigate("/account");
+                }}
+              >
+                {sessionStorage.getItem("loginid")}
+              </span>
               <button
                 onClick={() => {
                   sessionStorage.clear();

@@ -6,6 +6,11 @@ const BoardWrite = ({ setBoardList }) => {
   const navigate = useNavigate();
   const [Subject, setSubject] = useState("");
   const [Contents, setContents] = useState("");
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      write();
+    }
+  };
 
   const write = () => {
     axios({
@@ -43,6 +48,7 @@ const BoardWrite = ({ setBoardList }) => {
             cols="30"
             rows="10"
             value={Contents}
+            onKeyUp={handleKeyPress}
             onChange={(e) => {
               setContents(e.target.value);
             }}
