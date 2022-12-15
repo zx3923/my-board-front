@@ -52,6 +52,7 @@ const Login = () => {
           <span>비밀번호 : </span>
           <input
             type="password"
+            c
             value={Password}
             onKeyUp={handleKeyPress}
             onChange={(e) => {
