@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentList from "../comment/CommentList";
 import { Viewer } from "@toast-ui/react-editor";
+import Prism from "prismjs";
+import codeSyntaxHighlightPlugin from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 const BoardDetail = ({ setBoardList }) => {
   const navigate = useNavigate();
@@ -87,7 +89,12 @@ const BoardDetail = ({ setBoardList }) => {
       </button>
       <div>작성자 : ({contents.author})</div>
       <div>제목 : ({contents.subject})</div>
-      {contents && <Viewer initialValue={contents.contents} />}
+      {contents && (
+        <Viewer
+          initialValue={contents.contents}
+          plugins={[[codeSyntaxHighlightPlugin, { highlighter: Prism }]]}
+        />
+      )}
 
       <div>
         {" "}

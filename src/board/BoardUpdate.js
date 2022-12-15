@@ -1,13 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
 
 const BoardUpdate = ({ boardList, setBoardList }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [boardText, setBoardText] = useState("");
   const [subject, setSubject] = useState("");
   const [contents, setContents] = useState("");
+  const toastRef = useRef();
 
   const patch = async () => {
     try {
@@ -32,7 +33,8 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
           method: "get",
           url: `http://localhost:8090/board/${id}`,
         });
-        setBoardText(data.data);
+        setSubject(data.data.subject);
+        setContents(data.data.contents);
       } catch (e) {
         console.log(e);
       }
@@ -47,7 +49,7 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
           <span>제목</span>
           <input
             type="text"
-            defaultValue={boardText.subject}
+            defaultValue={subject}
             onChange={(e) => {
               setSubject(e.target.value);
             }}
@@ -55,16 +57,24 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
         </div>
         <div>
           <span>내용</span>
-          <textarea
+          <Editor
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="markdown"
+            useCommandShortcut={true}
+            defaultValue={contents}
+            ref={toastRef}
+          />
+          {/* <textarea
             name=""
             id=""
             cols="30"
             rows="10"
-            defaultValue={boardText.contents}
+            defaultValue={contents}
             onChange={(e) => {
               setContents(e.target.value);
             }}
-          ></textarea>
+          ></textarea> */}
         </div>
       </div>
       <button

@@ -3,6 +3,8 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@toast-ui/react-editor";
 import styles from "./Board.module.css";
+import Prism from "prismjs";
+import codeSyntaxHighlightPlugin from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 const BoardWrite = ({ setBoardList }) => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const BoardWrite = ({ setBoardList }) => {
       url: "http://localhost:8090/board/write",
       data: {
         subject: Subject,
-        contents: toastRef.current?.getInstance().getHTML(),
+        contents: toastRef.current?.getInstance().getMarkdown(),
         author: sessionStorage.getItem("loginid"),
       },
     }).then((response) => {
@@ -66,13 +68,14 @@ const BoardWrite = ({ setBoardList }) => {
           initialEditType="markdown"
           useCommandShortcut={true}
           ref={toastRef}
+          plugins={[[codeSyntaxHighlightPlugin, { highlighter: Prism }]]}
         />
       </div>
       <button
         onClick={() => {
           if (Subject === "") {
             alert("제목을 입력하세요.");
-          } else if (toastRef.current?.getInstance().getHTML() === "") {
+          } else if (toastRef.current?.getInstance().getMarkdown() === "") {
             alert("내용을 입력하세요.");
           } else {
             write();
