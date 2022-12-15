@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentList from "../comment/CommentList";
+import { Viewer } from "@toast-ui/react-editor";
 
 const BoardDetail = ({ setBoardList }) => {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ const BoardDetail = ({ setBoardList }) => {
         contents: Comment,
         author: sessionStorage.getItem("loginid"),
       },
-    }).then((response) => {});
+    }).then((response) => {
+      setCommentList(response.data);
+    });
   };
 
   const boardDelete = () => {
@@ -50,7 +53,6 @@ const BoardDetail = ({ setBoardList }) => {
         method: "get",
         url: `http://localhost:8090/board/comment/list/${id}`,
       });
-      console.log(contents);
       setContents(data.data);
       setCommentList(data2.data);
     };
@@ -85,7 +87,8 @@ const BoardDetail = ({ setBoardList }) => {
       </button>
       <div>작성자 : ({contents.author})</div>
       <div>제목 : ({contents.subject})</div>
-      <div>내용 : ({contents.contents})</div>
+      {contents && <Viewer initialValue={contents.contents} />}
+
       <div>
         {" "}
         <span>댓글</span>
@@ -111,7 +114,6 @@ const BoardDetail = ({ setBoardList }) => {
         ></textarea>
         <button
           onClick={() => {
-            console.log(sessionStorage.getItem("logined"));
             if (!sessionStorage.getItem("logined")) {
               alert("로그인이 필요합니다.");
             } else if (Comment === "") {
@@ -119,7 +121,6 @@ const BoardDetail = ({ setBoardList }) => {
             } else {
               commentPost();
               alert("작성했습니다.");
-              window.location.reload();
             }
           }}
         >
