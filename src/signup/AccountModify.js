@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../components/styles.module.css";
 
 const AccountModify = () => {
   const navigete = useNavigate();
@@ -81,81 +82,83 @@ const AccountModify = () => {
   };
   return (
     <>
-      <div>회원 정보 수정</div>
-      <div>
+      <div className={styles.container}>
+        <div>회원 정보 수정</div>
         <div>
-          <span> 이름 : {sessionStorage.getItem("named")}</span>
-        </div>
-        <div>
-          <span> 아이디 : {sessionStorage.getItem("loginid")}</span>
-        </div>
-        <div>
-          {loginCheck ? (
-            <>
-              <div>
-                <span>비밀번호 </span>
-                <input
-                  type="password"
-                  value={changePassword}
-                  onChange={(e) => {
-                    setCgangePassword(e.target.value);
-                  }}
-                />
+          <div>
+            <span> 이름 : {sessionStorage.getItem("named")}</span>
+          </div>
+          <div>
+            <span> 아이디 : {sessionStorage.getItem("loginid")}</span>
+          </div>
+          <div>
+            {loginCheck ? (
+              <>
+                <div>
+                  <span>비밀번호 </span>
+                  <input
+                    type="password"
+                    value={changePassword}
+                    onChange={(e) => {
+                      setCgangePassword(e.target.value);
+                    }}
+                  />
 
-                <span>비밀번호 확인</span>
+                  <span>비밀번호 확인</span>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onKeyUp={handleKeyPress2}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
+                  />
+                  <button
+                    onClick={() => {
+                      modifyPassword();
+                    }}
+                  >
+                    확인
+                  </button>
+                </div>
+                <div>
+                  <span>회원 탈퇴 : </span>{" "}
+                  <button
+                    onClick={() => {
+                      deleteAccount();
+                    }}
+                  >
+                    회원 탈퇴
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <span> 현재 비밀번호</span>{" "}
                 <input
                   type="password"
-                  value={confirmPassword}
-                  onKeyUp={handleKeyPress2}
+                  value={password}
+                  onKeyUp={handleKeyPress}
                   onChange={(e) => {
-                    setConfirmPassword(e.target.value);
+                    setPassword(e.target.value);
                   }}
-                />
+                />{" "}
                 <button
                   onClick={() => {
-                    modifyPassword();
+                    if (password === "") {
+                      alert("비밀번호를 확인하세요");
+                    } else {
+                      cehckPassword();
+                    }
                   }}
                 >
                   확인
                 </button>
-              </div>
-              <div>
-                <span>회원 탈퇴 : </span>{" "}
-                <button
-                  onClick={() => {
-                    deleteAccount();
-                  }}
-                >
-                  회원 탈퇴
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <span> 현재 비밀번호</span>{" "}
-              <input
-                type="password"
-                value={password}
-                onKeyUp={handleKeyPress}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />{" "}
-              <button
-                onClick={() => {
-                  if (password === "") {
-                    alert("비밀번호를 확인하세요");
-                  } else {
-                    cehckPassword();
-                  }
-                }}
-              >
-                확인
-              </button>
-            </>
-          )}
+              </>
+            )}
+          </div>
+          {/* <div>{loginCheck ? <></> : <></>}</div> */}
         </div>
-        {/* <div>{loginCheck ? <></> : <></>}</div> */}
       </div>
     </>
   );

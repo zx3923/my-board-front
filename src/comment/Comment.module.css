@@ -1,0 +1,25 @@
+.commentTag {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+.commentTag > div:first-child {
+  margin-right: 20px;
+}
+
+.commentTag > div > div {
+  font-size: 11px;
+  color: rgb(148, 148, 148);
+  margin-right: 20px;
+}
+
+.comDelete {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 0.01rem;
+}
+
+hr:last-child {
+  border: none;
+}

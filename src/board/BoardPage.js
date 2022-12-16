@@ -3,6 +3,17 @@ import BoardList from "./BoardList";
 import { useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import "./PagingStyles.css";
+import styles from "./Board.module.css";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
+// material-ui
 
 const BoardPage = ({ boardList }) => {
   const navigate = useNavigate();
@@ -25,19 +36,21 @@ const BoardPage = ({ boardList }) => {
       alert("로그인하세요");
     }
   };
+
   useEffect(() => {}, []);
   return (
-    <div>
+    <div className={styles.container}>
       <button
+        className={styles.writeBtn}
         onClick={() => {
           write();
         }}
       >
         글 쓰기
       </button>{" "}
-      <div>
+      {/* <div className={styles.tableContainer}>
         <table>
-          <thead>
+          <thead className={styles.thead}>
             <tr>
               <th>no.</th>
               <th>제목</th>
@@ -60,7 +73,46 @@ const BoardPage = ({ boardList }) => {
             onChange={handlePageChange}
           />
         </table>
-      </div>
+      </div> */}
+      <TableContainer component={Paper}>
+        <Table size="small">
+          <TableHead>
+            <TableRow className={styles.tHead}>
+              <TableCell>No</TableCell>
+              <TableCell align="right">제목</TableCell>
+              <TableCell align="right">작성자</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {boardList
+              .slice(offset, offset + postPerPage)
+              .map(({ boardId, author, subject }, i) => (
+                <TableRow key={boardId}>
+                  <TableCell>{i + 1}</TableCell>
+                  <TableCell
+                    align="right"
+                    className={styles.boardSubject}
+                    onClick={() => {
+                      navigate(`/detail/${boardId}`);
+                    }}
+                  >
+                    {subject}
+                  </TableCell>
+                  <TableCell align="right">{author}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>{" "}
+      <Pagination
+        activePage={currentPage}
+        itemsCountPerPage={10}
+        totalItemsCount={boardList.length}
+        pageRangeDisplayed={5}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={handlePageChange}
+      />
     </div>
   );
 };

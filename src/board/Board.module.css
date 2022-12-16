@@ -1,3 +1,139 @@
-.test {
-  width: 1200px;
+/* 페이지 */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.writeBtn {
+  margin: 10px;
+  background-color: white;
+  border-radius: 5px;
+  color: skyblue;
+  border: 1px solid skyblue;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.writeBtn:hover {
+  cursor: pointer;
+}
+
+.tHead {
+  background-color: #e0e0e0;
+}
+
+.boardSubject:hover {
+  cursor: pointer;
+}
+
+/* 디테일 */
+
+.backListBtn {
+  margin-left: auto;
+  margin-right: 0;
+  display: block;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.deleteBoard {
+  padding: 5px;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.modifyBoard {
+  padding: 5px;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: white;
+}
+
+.hTag {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.hTag > div:first-child {
+  margin-right: 20px;
+}
+
+.hTag span {
+  color: gray;
+}
+
+hr {
+  border: 1px solid gainsboro;
+  border-top: 0;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  border: 1px solid black;
+  font-size: 1.2rem;
+  height: 50px;
+}
+.textArea {
+  max-width: 800px;
+}
+
+.comPost {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+/* 작성 */
+.subjectTag {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.boardWriteBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.boardWriteBtn:hover {
+  cursor: pointer;
+}
+
+.boardUpdateBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.boardUpdateBtn:hover {
+  cursor: pointer;
 }

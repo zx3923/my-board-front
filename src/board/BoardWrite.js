@@ -33,19 +33,20 @@ const BoardWrite = ({ setBoardList }) => {
   };
   return (
     <>
-      <div>글 쓰기</div>
-      <div>
+      <div className={styles.container}>
+        <div>글 쓰기</div>
         <div>
-          <span>제목</span>
-          <input
-            type="text"
-            value={Subject}
-            onChange={(e) => {
-              setSubject(e.target.value);
-            }}
-          />
-        </div>
-        {/* <div>
+          <div className={styles.subjectTag}>
+            <span>제목</span>
+            <input
+              type="text"
+              value={Subject}
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
+            />
+          </div>
+          {/* <div>
           <span>내용</span>
           <textarea
             name=""
@@ -59,33 +60,35 @@ const BoardWrite = ({ setBoardList }) => {
             }}
           ></textarea>
         </div> */}
-      </div>
-      <div className={styles.test}>
-        {/* toast ul 설정 */}
-        <Editor
-          previewStyle="vertical"
-          height="600px"
-          initialEditType="markdown"
-          useCommandShortcut={true}
-          ref={toastRef}
-          plugins={[[codeSyntaxHighlightPlugin, { highlighter: Prism }]]}
-        />
-      </div>
-      <button
-        onClick={() => {
-          if (Subject === "") {
-            alert("제목을 입력하세요.");
-          } else if (toastRef.current?.getInstance().getMarkdown() === "") {
-            alert("내용을 입력하세요.");
-          } else {
-            write();
-            alert("작성했습니다.");
-            navigate("/list");
-          }
-        }}
-      >
-        작성하기
-      </button>
+        </div>
+        <div className={styles.test}>
+          {/* toast ul 설정 */}
+          <Editor
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="markdown"
+            useCommandShortcut={true}
+            ref={toastRef}
+            plugins={[[codeSyntaxHighlightPlugin, { highlighter: Prism }]]}
+          />
+        </div>
+        <button
+          className={styles.boardWriteBtn}
+          onClick={() => {
+            if (Subject === "") {
+              alert("제목을 입력하세요.");
+            } else if (toastRef.current?.getInstance().getMarkdown() === "") {
+              alert("내용을 입력하세요.");
+            } else {
+              write();
+              alert("작성했습니다.");
+              navigate("/list");
+            }
+          }}
+        >
+          작성하기
+        </button>
+      </div>{" "}
     </>
   );
 };

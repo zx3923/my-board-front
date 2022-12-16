@@ -5,6 +5,7 @@ import CommentList from "../comment/CommentList";
 import { Viewer } from "@toast-ui/react-editor";
 import Prism from "prismjs";
 import codeSyntaxHighlightPlugin from "@toast-ui/editor-plugin-code-syntax-highlight";
+import styles from "./Board.module.css";
 
 const BoardDetail = ({ setBoardList }) => {
   const navigate = useNavigate();
@@ -45,6 +46,21 @@ const BoardDetail = ({ setBoardList }) => {
       // -> 스프링에서 삭제시 false 값 혹은 리스트객체를 보내줘서 삭제 성공하면 setBoardList로 데이터를 새로씌움
     });
   };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      if (!sessionStorage.getItem("logined")) {
+        alert("로그인이 필요합니다.");
+        setComment("");
+      } else if (Comment === "") {
+        alert("내용을 입력하세요");
+      } else {
+        commentPost();
+        alert("작성했습니다.");
+        setComment("");
+      }
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
       const data = await axios({
@@ -61,22 +77,17 @@ const BoardDetail = ({ setBoardList }) => {
     getData();
   }, []);
   return (
-    <div>
+    <div className={styles.container}>
       <button
+        className={styles.backListBtn}
         onClick={() => {
           navigate("/list");
         }}
       >
-        리스트
+        돌아가기
       </button>
       <button
-        onClick={() => {
-          boardDelete();
-        }}
-      >
-        삭제
-      </button>
-      <button
+        className={styles.modifyBoard}
         onClick={() => {
           if (sessionStorage.getItem("loginid") == contents.author) {
             navigate(`../../update/${id}`);
@@ -87,8 +98,22 @@ const BoardDetail = ({ setBoardList }) => {
       >
         수정
       </button>
-      <div>작성자 : ({contents.author})</div>
-      <div>제목 : ({contents.subject})</div>
+      <button
+        className={styles.deleteBoard}
+        onClick={() => {
+          boardDelete();
+        }}
+      >
+        삭제
+      </button>
+      <div className={styles.hTag}>
+        <div>
+          작성자 : <span>{contents.author}</span>
+        </div>
+        <div>
+          제목 : <span>{contents.subject}</span>
+        </div>
+      </div>
       {contents && (
         <Viewer
           initialValue={contents.contents}
@@ -98,8 +123,9 @@ const BoardDetail = ({ setBoardList }) => {
 
       <div>
         {" "}
-        <span>댓글</span>
-        <tbody>
+        <span>댓글({commentList.length})</span>
+        <hr />
+        <div>
           {commentList &&
             commentList.map((list, index) => (
               <CommentList
@@ -108,26 +134,29 @@ const BoardDetail = ({ setBoardList }) => {
                 setCommentList={setCommentList}
               />
             ))}
-        </tbody>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="3"
-          value={Comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-        ></textarea>
+        </div>
+        <div className={styles.textArea}>
+          <textarea
+            rows="3"
+            value={Comment}
+            onKeyUp={handleKeyPress}
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+          ></textarea>
+        </div>
         <button
+          className={styles.comPost}
           onClick={() => {
             if (!sessionStorage.getItem("logined")) {
               alert("로그인이 필요합니다.");
+              setComment("");
             } else if (Comment === "") {
               alert("내용을 입력하세요");
             } else {
               commentPost();
               alert("작성했습니다.");
+              setComment("");
             }
           }}
         >

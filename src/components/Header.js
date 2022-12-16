@@ -6,36 +6,48 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className={styles.Header}>
-        <a href="/">메뉴</a>
-        <div>빈공간</div>
-        <div>
-          {sessionStorage.getItem("logined") ? (
-            <>
-              <span
-                onClick={() => {
-                  navigate("/account");
-                }}
-              >
-                {sessionStorage.getItem("loginid")}
-              </span>
-              <button
-                onClick={() => {
-                  sessionStorage.clear();
-                  alert("로그아웃 했습니다.");
-                  navigate("/");
-                  window.location.reload();
-                }}
-              >
-                로그아웃
-              </button>
-            </>
-          ) : (
-            <>
-              <a href="/signup">회원가입</a>
-              <a href="/login">로그인</a>
-            </>
-          )}
+      <div className={styles.container}>
+        <div className={styles.Header}>
+          <div className={styles.mainLogo}>
+            <a href="/">메인 로고</a>
+          </div>
+          <div></div>
+          <div>
+            {sessionStorage.getItem("logined") ? (
+              <>
+                <span
+                  className={styles.headerName}
+                  onClick={() => {
+                    navigate("/account");
+                  }}
+                >
+                  {sessionStorage.getItem("loginid")} 님
+                </span>
+                <button
+                  className={styles.logoutBtn}
+                  onClick={() => {
+                    sessionStorage.clear();
+                    alert("로그아웃 했습니다.");
+                    navigate("/");
+                    window.location.reload();
+                  }}
+                >
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <>
+                <div className={styles.headerBar}>
+                  <div className={styles.signBtn}>
+                    <a href="/signup">회원가입</a>
+                  </div>
+                  <div className={styles.loginBtn}>
+                    <a href="/login">로그인</a>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>

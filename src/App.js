@@ -11,9 +11,22 @@ import axios from "axios";
 import BoardDetail from "./board/BoardDetail";
 import BoardUpdate from "./board/BoardUpdate";
 import AccountModify from "./signup/AccountModify";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const [boardList, setBoardList] = useState([]);
+  const Desktop = ({ children }) => {
+    const isDesktop = useMediaQuery({ minWidth: 768 });
+    return isDesktop ? children : null;
+  };
+  // const Tablet = ({ children }) => {
+  //   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
+  //   return isTablet ? children : null
+  // }
+  const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+    return isMobile ? children : null;
+  };
 
   useEffect(() => {
     const getData = async () => {

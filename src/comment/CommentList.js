@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import styles from "./Comment.module.css";
 
 const CommentList = ({ list, setCommentList }) => {
   const { commentContents, commentAuthor, commentId } = list;
@@ -21,17 +22,24 @@ const CommentList = ({ list, setCommentList }) => {
   };
   return (
     <>
-      <tr>
-        <th>내용 : ({commentContents})</th>
-        <th>작성자 : ({commentAuthor})</th>
-        <button
-          onClick={() => {
-            commentDelete();
-          }}
-        >
-          X
-        </button>
-      </tr>
+      <div className={styles.commentTag}>
+        <div>
+          <span> {commentContents}</span>
+          <div>작성자 :{commentAuthor}</div>
+        </div>
+
+        <div>
+          <button
+            className={styles.comDelete}
+            onClick={() => {
+              commentDelete();
+            }}
+          >
+            X
+          </button>
+        </div>
+      </div>
+      <hr />
     </>
   );
 };

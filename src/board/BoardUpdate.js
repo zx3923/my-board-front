@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@toast-ui/react-editor";
+import styles from "./Board.module.css";
 
 const BoardUpdate = ({ boardList, setBoardList }) => {
   const navigate = useNavigate();
@@ -43,28 +44,29 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
   }, []);
   return (
     <>
-      <div>글 쓰기</div>
-      <div>
+      <div className={styles.container}>
+        <div>글 쓰기</div>
         <div>
-          <span>제목</span>
-          <input
-            type="text"
-            defaultValue={subject}
-            onChange={(e) => {
-              setSubject(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <span>내용</span>
-          <Editor
-            previewStyle="vertical"
-            height="600px"
-            initialEditType="markdown"
-            useCommandShortcut={true}
-            ref={toastRef}
-          />
-          {/* <textarea
+          <div className={styles.subjectTag}>
+            <span>제목</span>
+            <input
+              type="text"
+              defaultValue={subject}
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            {/* <span>내용</span> */}
+            <Editor
+              previewStyle="vertical"
+              height="600px"
+              initialEditType="markdown"
+              useCommandShortcut={true}
+              ref={toastRef}
+            />
+            {/* <textarea
             name=""
             id=""
             cols="30"
@@ -74,23 +76,25 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
               setContents(e.target.value);
             }}
           ></textarea> */}
+          </div>
         </div>
+        <button
+          className={styles.boardUpdateBtn}
+          onClick={() => {
+            if (subject === "") {
+              alert("제목을 입력하세요.");
+            } else if (toastRef.current?.getInstance().getMarkdown() === "") {
+              alert("내용을 입력하세요.");
+            } else {
+              patch();
+              alert("수정했습니다.");
+              navigate("/list");
+            }
+          }}
+        >
+          수정하기
+        </button>
       </div>
-      <button
-        onClick={() => {
-          if (subject === "") {
-            alert("제목을 입력하세요.");
-          } else if (toastRef.current?.getInstance().getMarkdown() === "") {
-            alert("내용을 입력하세요.");
-          } else {
-            patch();
-            alert("수정했습니다.");
-            navigate("/list");
-          }
-        }}
-      >
-        수정하기
-      </button>
     </>
   );
 };
