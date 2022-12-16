@@ -17,7 +17,7 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
         url: `http://localhost:8090/board/update/${id}`,
         data: {
           subject,
-          contents,
+          contents: toastRef.current?.getInstance().getMarkdown(),
           author: sessionStorage.getItem("loginid"),
         },
       });
@@ -34,7 +34,7 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
           url: `http://localhost:8090/board/${id}`,
         });
         setSubject(data.data.subject);
-        setContents(data.data.contents);
+        toastRef.current?.getInstance().setMarkdown(data.data.contents);
       } catch (e) {
         console.log(e);
       }
@@ -62,7 +62,6 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
             height="600px"
             initialEditType="markdown"
             useCommandShortcut={true}
-            defaultValue={contents}
             ref={toastRef}
           />
           {/* <textarea
@@ -81,7 +80,7 @@ const BoardUpdate = ({ boardList, setBoardList }) => {
         onClick={() => {
           if (subject === "") {
             alert("제목을 입력하세요.");
-          } else if (contents === "") {
+          } else if (toastRef.current?.getInstance().getMarkdown() === "") {
             alert("내용을 입력하세요.");
           } else {
             patch();

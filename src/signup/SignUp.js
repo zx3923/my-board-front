@@ -8,6 +8,12 @@ const SignUp = () => {
   const [UserId, setUserId] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      post();
+    }
+  };
   const post = () => {
     axios({
       method: "post",
@@ -66,6 +72,7 @@ const SignUp = () => {
           <input
             type="password"
             value={ConfirmPassword}
+            onKeyUp={handleKeyPress}
             onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}

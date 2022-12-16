@@ -43,6 +43,7 @@ const AccountModify = () => {
         alert("비밀번호를 확인하세요");
       } else {
         setLoginCheck(response.data);
+        alert("확인되었습니다.");
       }
     });
   };
@@ -65,6 +66,19 @@ const AccountModify = () => {
       }
     });
   };
+  const deleteAccount = () => {
+    axios({
+      method: "delete",
+      url: "http://localhost:8090/user/delete",
+      data: {
+        userId: sessionStorage.getItem("loginid"),
+      },
+    }).then((response) => {
+      alert(response.data);
+      sessionStorage.clear();
+      navigete("/");
+    });
+  };
   return (
     <>
       <div>회원 정보 수정</div>
@@ -74,34 +88,6 @@ const AccountModify = () => {
         </div>
         <div>
           <span> 아이디 : {sessionStorage.getItem("loginid")}</span>
-        </div>
-        <div>
-          {loginCheck ? (
-            <></>
-          ) : (
-            <>
-              <span> 현재 비밀번호</span>{" "}
-              <input
-                type="password"
-                value={password}
-                onKeyUp={handleKeyPress}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />{" "}
-              <button
-                onClick={() => {
-                  if (password === "") {
-                    alert("비밀번호를 확인하세요");
-                  } else {
-                    cehckPassword();
-                  }
-                }}
-              >
-                확인
-              </button>
-            </>
-          )}
         </div>
         <div>
           {loginCheck ? (
@@ -133,11 +119,43 @@ const AccountModify = () => {
                   확인
                 </button>
               </div>
+              <div>
+                <span>회원 탈퇴 : </span>{" "}
+                <button
+                  onClick={() => {
+                    deleteAccount();
+                  }}
+                >
+                  회원 탈퇴
+                </button>
+              </div>
             </>
           ) : (
-            <></>
+            <>
+              <span> 현재 비밀번호</span>{" "}
+              <input
+                type="password"
+                value={password}
+                onKeyUp={handleKeyPress}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />{" "}
+              <button
+                onClick={() => {
+                  if (password === "") {
+                    alert("비밀번호를 확인하세요");
+                  } else {
+                    cehckPassword();
+                  }
+                }}
+              >
+                확인
+              </button>
+            </>
           )}
         </div>
+        {/* <div>{loginCheck ? <></> : <></>}</div> */}
       </div>
     </>
   );
